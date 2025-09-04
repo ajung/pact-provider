@@ -7,7 +7,7 @@ Dieses Project dient als Übungsbeispiel für die Verwendung von [Pact](https://
 Bevor du loslegst, stelle sicher, dass du die folgenden Voraussetzungen erfüllst:
 - Java 17 oder höher ist installiert.
 - Maven ist installiert.
-- Du hast Zugriff auf den [Pact Broker](https://pact-baseimage-dt-zd-mpsbetrieb.apps.dt.ocp.tc.corp/).
+- Du hast Zugriff auf den [Pact Broker](http://http.pact-baseimage-dt-zd-mpsbetrieb.apps.dt.ocp.tc.corp/).
 
 ## Entwicklung
 
