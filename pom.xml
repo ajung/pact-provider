@@ -16,12 +16,12 @@
         <quarkus.platform.version>3.26.1</quarkus.platform.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.5.3</surefire-plugin.version>
-        
+
         <!-- Pact Broker Konfiguration -->
         <pact.broker.url>http://http.pact-baseimage-dt-zd-mpsbetrieb.apps.dt.ocp.tc.corp/</pact.broker.url>
         <pact.provider.name>playground-provider-quarkus</pact.provider.name>
         <pact.provider.tags>main</pact.provider.tags>
-        
+
         <!-- Verification Results Publishing -->
         <pact.verifier.publishResults>true</pact.verifier.publishResults>
         <pact.provider.version>1.0.0</pact.provider.version>
@@ -109,10 +109,13 @@
                     <systemPropertyVariables>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                         <maven.home>${maven.home}</maven.home>
-                        <!-- Pact Properties für Tests -->
-                        <pact.broker.url>${pact.broker.url}</pact.broker.url>
+                        <!-- Pact Properties für alle Tests verfügbar machen -->
                         <pact.provider.name>${pact.provider.name}</pact.provider.name>
+                        <pact.broker.url>${pact.broker.url}</pact.broker.url>
                         <pact.provider.tags>${pact.provider.tags}</pact.provider.tags>
+                        <pact.provider.version>${pact.provider.version}</pact.provider.version>
+                        <pact.provider.branch>${pact.provider.branch}</pact.provider.branch>
+                        <pact.verifier.publishResults>${pact.verifier.publishResults}</pact.verifier.publishResults>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -139,43 +142,4 @@
         </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>native</id>
-            <activation>
-                <property>
-                    <name>native</name>
-                </property>
-            </activation>
-            <properties>
-                <skipITs>false</skipITs>
-                <quarkus.native.enabled>true</quarkus.native.enabled>
-            </properties>
-        </profile>
-        
-        <profile>
-            <id>pact-broker</id>
-            <properties>
-                <!-- Aktiviert Pact Broker für Tests -->
-                <pact.broker.enabled>true</pact.broker.enabled>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <!-- Verification Results Publishing -->
-                                <pact.verifier.publishResults>${pact.verifier.publishResults}</pact.verifier.publishResults>
-                                <pact.provider.version>${pact.provider.version}</pact.provider.version>
-                                <pact.provider.branch>${pact.provider.branch}</pact.provider.branch>
-                                <pact.broker.url>${pact.broker.url}</pact.broker.url>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
